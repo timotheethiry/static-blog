@@ -6,7 +6,10 @@
             <ul class="flex items-center">
                 <!-- add button -->
                 <li class="h-6 mr-6">
-            <nuxt-link class="" to="/">Accueil</nuxt-link>
+                    <nuxt-link class="" to="/">Accueil</nuxt-link>
+                </li>
+                <li class="h-6 mr-6">
+                    <nuxt-link class="" to="/about">Who is this guy ?</nuxt-link>
                 </li>
             </ul>
 
