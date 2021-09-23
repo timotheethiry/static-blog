@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div id="hero-container"  class="h-96 overflow-hidden">
+        <div id="hero-container"  class="overflow-hidden">
             <img id="hero" class="h-auto
-            w-full transform -translate-y-24 mx-auto" src="https://images.unsplash.com/19/nomad.JPG?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80" 
+            w-full mx-auto" :src="photo" 
             alt="Background image of a mountains view at dawn" />
         </div>
 
@@ -20,7 +20,8 @@
     export default {
         data() {
             return {
-                article: {}
+                article: {},
+                photo: ''
             }
         },
         created() {
@@ -35,6 +36,7 @@
             client.getEntry(this.$route.params.id)
             .then((entry) => {
                 this.article = entry;
+                console.log(this.article.fields.heroImage.sys.id);
 
                 // nuxt fails to render the data inside fields and metadata even though it can render these objects themselves
                 const title = document.getElementById('title');
@@ -49,12 +51,23 @@
                     tag.textContent = "#" + element.sys.id;
                 });
             })
-            .catch(console.error);   
+            .then(() => {
+                client.getAsset(this.article.fields.heroImage.sys.id)
+                .then((asset) => {
+                    this.photo = asset.fields.file.url;
+                })
+                .catch(console.error); 
+            })
+            .catch(console.error); 
         }
     }
 </script>
 
 <style scoped>
+
+#hero-container {
+    height: max-content;
+}
 
 .article {
     width: 90%;
