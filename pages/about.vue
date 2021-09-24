@@ -2,7 +2,7 @@
     <div>
         <div class="text-center m-4" v-for="(item, index) in person.items" :key="index">
             <div class="mx-auto mb-4 w-40 h-40 object-contain">
-                <img id="photo" :src="photo[index].fields.file.url">   
+                <img :src="photo[index].fields.file.url">   
             </div>
             <h2>{{ item.fields.name }}</h2>
             <h1>{{ item.fields.title }} </h1>

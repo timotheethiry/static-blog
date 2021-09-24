@@ -36,7 +36,6 @@
             client.getEntry(this.$route.params.id)
             .then((entry) => {
                 this.article = entry;
-                console.log(this.article.fields.heroImage.sys.id);
 
                 // nuxt fails to render the data inside fields and metadata even though it can render these objects themselves
                 const title = document.getElementById('title');
