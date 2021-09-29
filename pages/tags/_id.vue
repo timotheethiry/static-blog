@@ -1,22 +1,22 @@
 <template>
-    <div  class="w-8/12 article">
-        <div v-for="(article, index) in articles" :key="index" class="mb-4 p-2 border-2 border-gray-300 shadow-md rounded-lg text-center overflow-hidden">
+    <div class="article mx-auto">
+        <div v-for="(article, index) in articles" :key="index" class="my-4 p-2 border-2 border-gray-300 shadow-md rounded-lg text-center overflow-hidden">
             
             <a class="cursor-pointer" @click="openArticle(article)">
                 <div class="mr-auto w-80 float-left object-contain">
                     <img class="mr-2 mb-2 rounded-lg" :src="previews[index]">   
                 </div>
-                
+
                 <div class="h-full">
                     <h2 class="font-bold">{{ article.fields.title }}</h2>
-                    
+
                     <p v-for="(tag, index) in article.metadata.tags" :key="index">#{{ tag.sys.id }}</p>
                     <p class="body">{{ article.fields.body }}</p>  
                 </div>
             </a>
         </div>
-    </div> 
-</template> 
+    </div>
+</template>
 
 <script lang="ts">
 
@@ -44,10 +44,10 @@
                 space: process.env.SPACE_ID,
                 environment: process.env.ENV_ID,
                 accessToken: process.env.ACCESS_TOKEN   
-            }); 
-
+            });
+            
             client.getEntries({
-                content_type: 'blogPost'
+                'metadata.tags.sys.id[in]': this.$route.params.id
             })
             .then((entries) => {
                 this.articles = entries.items;
@@ -67,16 +67,7 @@
 </script>
 
 <style scoped>
-
-.article {
-    margin: 0 1rem 0;   
-}
-
-@media screen and (max-width: 700px) {
     .article {
         width: 90%;
-        margin: 0 auto 0;
     }
-}
-
 </style>
